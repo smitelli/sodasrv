@@ -49,7 +49,7 @@
   echo 'OK';
 
   // Call the external handler, if one exists for the type of key sent
-  $handler = "{$self_path}/handlers/"
+  $handler = "{$src_path}/handlers/"
            . preg_replace('/[^a-z]/', '', $data['key'])
            . '.php';
   if (is_readable($handler)) require $handler;

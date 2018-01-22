@@ -1,7 +1,7 @@
 <?php
 
   // Only allow this script to run from certain client IPs
-  if ($_SERVER['HTTP_X_SODA_AUTH'] !== LISTENER_AUTH) {
+  if (@$_SERVER['HTTP_X_SODA_AUTH'] !== LISTENER_AUTH) {
     die("Sorry, nope.");
   }
 
@@ -49,7 +49,7 @@
   echo 'OK';
 
   // Call the external handler, if one exists for the type of key sent
-  $handler = "{$app_path}/handlers/"
+  $handler = "{$self_path}/handlers/"
            . preg_replace('/[^a-z]/', '', $data['key'])
            . '.php';
   if (is_readable($handler)) require $handler;

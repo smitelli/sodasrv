@@ -6,23 +6,23 @@
     // =========================================================================
     // === Wrapper for the connect() method ====================================
     // =========================================================================
-    public function __construct($host, $user, $pass, $db) {
-      $this->connect($host, $user, $pass, $db);
+    public function __construct($host, $sock, $user, $pass, $db) {
+      $this->connect($host, $sock, $user, $pass, $db);
     }
 
     // =========================================================================
     // === Connect to MySQL, and choose a DB to use ============================
     // =========================================================================
-    public function connect($host, $user, $pass, $db) {
-      $this->dbh = mysql_connect($host, $user, $pass);
-      mysql_select_db($db, $this->dbh);
+    public function connect($host, $sock, $user, $pass, $db) {
+      $this->dbh = mysqli_connect($host, $user, $pass, $db, NULL, $sock);
+      $this->dbh->set_charset('utf8mb4');
     }
 
     // =========================================================================
     // === Disconnect from the database server =================================
     // =========================================================================
     public function disconnect() {
-      mysql_close($this->dbh);
+      $this->dbh->close();
     }
 
     // =========================================================================
@@ -37,14 +37,14 @@
     // === Escape a string to make it safe to use in a query ===================
     // =========================================================================
     public function escape($string) {
-      return mysql_real_escape_string($string, $this->dbh);
+      return $this->dbh->real_escape_string($string);
     }
 
     // =========================================================================
     // === Run an SQL query and return the result handle =======================
     // =========================================================================
     public function query($query) {
-      return mysql_query($query, $this->dbh);
+      return $this->dbh->query($query);
     }
 
     // =========================================================================
@@ -54,7 +54,7 @@
       $result = $this->query($query);
 
       $arr = array();
-      while ($row = mysql_fetch_assoc($result)) {
+      while ($row = $result->fetch_assoc()) {
         $arr[] = $row;
       }
 
@@ -68,7 +68,7 @@
       $result = $this->query($query);
 
       $arr = array();
-      while ($row = mysql_fetch_row($result)) {
+      while ($row = $result->fetch_row()) {
         if (isset($row[0])) $arr[] = $row[0];
       }
 
@@ -80,7 +80,7 @@
     // =========================================================================
     public function get_row($query) {
       $result = $this->query($query);
-      return mysql_fetch_assoc($result);
+      return $result->fetch_assoc();
     }
 
     // =========================================================================
@@ -88,7 +88,7 @@
     // =========================================================================
     public function get_field($query) {
       $result = $this->query($query);
-      $arr = mysql_fetch_row($result);
+      $arr = $result->fetch_row();
       return (isset($arr[0]) ? $arr[0] : FALSE);
     }
 

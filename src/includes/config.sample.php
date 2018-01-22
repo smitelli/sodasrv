@@ -2,6 +2,7 @@
 
   // MySQL configuration stuff
   define('MYSQL_HOST', '__FILL_ME_IN__');
+  define('MYSQL_SOCK', NULL);
   define('MYSQL_DB',   '__FILL_ME_IN__');
   define('MYSQL_USER', '__FILL_ME_IN__');
   define('MYSQL_PASS', '__FILL_ME_IN__');
@@ -10,6 +11,7 @@
   define('LISTENER_AUTH', '__FILL_ME_IN__');
 
   // Misc
+  define('COMPILE_DIR',    'compile');
   define('DEFAULT_PAGE',   'default');
   define('SHOW_LOG_LINES', 50);
 

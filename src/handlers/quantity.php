@@ -75,7 +75,7 @@
 
     // Things we will likely need
     $old_quantity = $db->get_var('quantity_current', 0);
-    $change_time  = $db->get_var('quantity_raw_changed', $data['timestamp']);
+    $change_time  = $db->get_var('quantity_raw_changed', 0);
     $age_stack    = unserialize($db->get_var('quantity_stack', $default_stack));
     $difference   = $new_quantity - $old_quantity;  //pos=added, neg=removed
 

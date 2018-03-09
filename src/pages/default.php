@@ -18,14 +18,10 @@
     ORDER BY `id` ASC
   ");
 
-  // Count rows in the data table
-  $data_count = $db->get_field("SELECT COUNT(*) FROM `data_points`");
-
   // Prepare the template and send it
   $smarty = spawn_smarty();
-  $smarty->assign('vars',      $variables);
-  $smarty->assign('dataCount', $data_count);
-  $smarty->assign('log',       $log_lines);
+  $smarty->assign('vars', $variables);
+  $smarty->assign('log',  $log_lines);
   $smarty->display('default.tpl');
 
 ?>

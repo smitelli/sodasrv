@@ -45,6 +45,10 @@
       `data_value` = '$v'
   ");
 
+  // Count rows in the data table
+  $data_points_count = $db->get_field("SELECT COUNT(*) FROM `data_points`");
+  $db->set_var('data_points_count', $data_points_count);
+
   // Give some indication that it worked
   echo 'OK';
 

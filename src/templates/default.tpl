@@ -17,7 +17,7 @@ Alarm Trigger Point: {$templateHelper->pluralize($smarty.const.QUANTITY_CANS_LOW
 Alarm State: {$vars.quantity_alarm}
 
 Last Heartbeat: {$templateHelper->heartbeat_age($vars.heartbeat_last)}
-Points in Data Table: {$dataCount}
+Points in Data Table: {$vars.data_points_count}
 
 {section name='line' loop=$log}
   [{$log[line].timestamp}] {$log[line].message|escape:'html'}

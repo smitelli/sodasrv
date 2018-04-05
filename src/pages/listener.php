@@ -45,9 +45,12 @@
       `data_value` = '$v'
   ");
 
-  // Count rows in the data table
-  $data_points_count = $db->get_field("SELECT COUNT(*) FROM `data_points`");
-  $db->set_var('data_points_count', $data_points_count);
+  // Count rows in the data table. This is stupid expensive, so only do it
+  // during the heartbeat at the top of the hour.
+  if ($data['key'] == 'heartbeat' && intval(date('i')) == 0) {
+    $data_points_count = $db->get_field("SELECT COUNT(*) FROM `data_points`");
+    $db->set_var('data_points_count', $data_points_count);
+  }
 
   // Give some indication that it worked
   echo 'OK';
